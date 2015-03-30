@@ -4,6 +4,8 @@
     Author     : dattr_000
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Bean.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,7 +42,7 @@
                     </td>
                     <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">${product.getName()}</td>
                     <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">${product.getPrice()}</td>
-                    <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">${product.getCount()}</td>
+                    <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">${product.getQuantity()}</td>
                     <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">
                         ${product.getCount()*product.getPrice()}
                     </td>
@@ -62,7 +64,7 @@
                         ArrayList<Product> list = (ArrayList<Product>) session.getAttribute("itemlist");
                         int totalitems = 0;
                         for (int i = 0; i < list.size(); i++) {
-                            totalitems += list.get(i).getCount();
+                            totalitems += list.get(i).getQuantity();
                         }
                         out.println(totalitems);
                     %>
@@ -78,7 +80,7 @@
                         ArrayList<Product> list2 = (ArrayList<Product>) session.getAttribute("itemlist");
                         double totalorder = 0;
                         for (int i = 0; i < list.size(); i++) {
-                            totalorder += list2.get(i).getCount() * list2.get(i).getPrice();
+                            totalorder += list2.get(i).getQuantity()* list2.get(i).getPrice();
                         }
                         out.println(totalorder + " $");
                     %>

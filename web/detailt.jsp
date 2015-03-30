@@ -17,9 +17,11 @@
         Product Id: ${id} <br/>
         Product Price: ${price} <br/>
         <form action="ViewServlet">
-            <input type="hidden" name="productget" value="name" />
-            <input name="button" value="AddToCart" type="submit" />
             <input name="button" value="BackToHome" type="submit" />
+        </form>
+        <form action="CartServlet">
+            <input type="hidden" name="productget" value="${name}" />
+            <input name="button2" value="AddToCart" type="submit" />
         </form>
     </body>
 </html>
