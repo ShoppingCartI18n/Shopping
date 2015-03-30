@@ -18,8 +18,8 @@ public class LoginModel {
     public static boolean checkUser(String user, String pass) {
         try {
             boolean status = false;
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection con = DriverManager.getConnection("jdbc:sqlserver://102LAPTOP\\SQLEXPRESS:1433;databaseName=shopping", "sa", "123456");
+           Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con = DriverManager.getConnection("jdbc:sqlserver://TIENDAT;databaseName=shopping", "sa", "123456");
             PreparedStatement ps = con.prepareStatement("select * from shopping where [username] = ? and [password] = ?");
             ps.setString(1, user);
             ps.setString(2, pass);

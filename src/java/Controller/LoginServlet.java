@@ -5,12 +5,8 @@
  */
 package Controller;
 
-import Bean.Product;
-import Model.ProductModel;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author dattr_000
  */
-public class ViewServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +35,10 @@ public class ViewServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewServlet</title>");
+            out.println("<title>Servlet LoginServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,29 +56,7 @@ public class ViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String button_param = request.getParameter("button");
-        if (button_param.equals("ViewDetail")) {
-            String name = request.getParameter("name_out");
-            ProductModel pro = new ProductModel();
-            Product product = pro.getbyName(name);
-            request.setAttribute("id", product.getId());
-            request.setAttribute("name", product.getName());
-            request.setAttribute("price", product.getPrice());
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("detailt.jsp");
-            requestDispatcher.forward(request, response);
-        } else {
-            if (button_param.equals("BackToHome")) {
-                List<Product> product = new ProductModel().getData();
-                request.setAttribute("listPro", product);
-                RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
-                requestDispatcher.forward(request, response);
-            }else{
-                if(button_param.equals("AddToCart")){
-                    System.out.println("admin");
-                }
-            }
-        }
-
+        processRequest(request, response);
     }
 
     /**
