@@ -7,6 +7,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="Bean.Product"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,9 +15,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-         <h1>Cart</h1>
-
-
+        <h1>Cart</h1>
         <table style="font-family: verdana,arial,sans-serif;
                font-size:11px;
                color:#333333;
@@ -28,33 +27,27 @@
                 padding: 8px;
                 border-style: solid;
                 border-color: #999999;">
-                <td style="width: 30px;border-width: 1px; border-style: solid; border-color: #999999;text-align: center;">STT</td>
-                <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">PRODUCT NAME</td>
-                <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">PRICE</td>
-                <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">QUANTITY</td>
-                <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">TOTAL PRICE</td>
-                <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">ACTION</td>
+                <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">Name</td>
+                <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">Price</td>
+                <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">Quantity</td>
+                <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">Total</td>
+                <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">Action</td>
             </tr>
-            <c:forEach items="${itemlist}" var="product">
-                <tr style="background-color: activeborder;" >
-                    <td style="width: 30px;border-width: 1px; border-style: solid; border-color: #999999;text-align: center;">
-                        1
-                    </td>
-                    <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">${product.getName()}</td>
-                    <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">${product.getPrice()}</td>
-                    <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">${product.getQuantity()}</td>
-                    <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">
-                        ${product.getCount()*product.getPrice()}
-                    </td>
-                    <td style="width: 80px;border-width: 1px; border-style: solid; border-color: #999999;">
-                        <form action="addServlet">
-                            <input type="hidden" name="name_del" value="${product.getName()}" />
-                            <input name="button" style="width: 100px; background: red;" type="submit" value="Del" />
+            <c:forEach var="product" items="${itemlist}">
+                <tr>
+                    <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">${product.name}</td>
+                    <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">${product.price}</td>
+                    <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">${product.quantity}</td>
+                    <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">${product.quantity*product.price}</td>
+                    <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">
+                        <form action="CartServlet">
+                            <input type="hidden" name="name_del" value="${product.name}" />
+                            <input name="button2" style="width: 100px; background: red;" type="submit" value="Delete" />
                         </form>
-                    </td> 
+                    </td>
+
                 </tr>
             </c:forEach>
-            <tr style="height: 20px; background-color: orange"></tr>
             <tr style="border: 1px solid black; width:450px; height: 30px; font-family: fantasy; font-size: small; ">
                 <td style="width: 100px;background: blue;color: white;">
                     Total Product:
@@ -80,20 +73,20 @@
                         ArrayList<Product> list2 = (ArrayList<Product>) session.getAttribute("itemlist");
                         double totalorder = 0;
                         for (int i = 0; i < list.size(); i++) {
-                            totalorder += list2.get(i).getQuantity()* list2.get(i).getPrice();
+                            totalorder += list2.get(i).getQuantity() * list2.get(i).getPrice();
                         }
-                        out.println(totalorder + " $");
+                        out.println("$" + totalorder);
                     %>
-
                 </td>
             </tr>
-            <tr style="height: 20px; background-color: orange"></tr>
-            <tr>
-            <form action="addServlet">
-                <td><input style="font-size: 16px;color: white;height: 60px;width: 200px; background-color: turquoise;" type="submit" name="button" value="CONTINUE SHOPPING" /></td>
-                <td><input style="font-size: 16px;color: white;height: 60px; width: 200px; background-color: turquoise;"  type="submit" name="button" value="CHECKOUT" /></td>
-            </form>
-        </tr>
-    </table>
+        </table>
+        <form action="ViewServlet">
+            <input name="button" value="BackToHome" type="submit" />
+        </form>
+        <form action="CartServlet">
+            <input type="hidden" name="productget" value="${name}" />
+            <input name="button2" value="CheckOut" type="submit" />
+        </form>
+
     </body>
 </html>

@@ -5,6 +5,9 @@
  */
 package Controller;
 
+import Bean.Cart;
+import Bean.Product;
+import Model.ProductModel;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -12,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -54,12 +58,53 @@ public class CartServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private Cart shop = new Cart();
+    HttpSession mysession = null;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String button = request.getParameter("button2");
+        RequestDispatcher rs = null;
         if (button.equals("AddToCart")) {
-            System.out.println("Addtocart");
+            String name = request.getParameter("productget");
+            ProductModel prom = new ProductModel();
+            Product p = prom.getbyName(name);
+            int i2 = shop.getIndex(p.getName());
+            if (i2 == -1) {
+                p.setQuantity(1);
+                shop.ins(p);
+            } else {
+                int count = shop.getIt().get(i2).getQuantity();
+                shop.getIt().get(i2).setQuantity(count + 1);
+            }
+            mysession = request.getSession();
+            mysession.setAttribute("itemlist", shop.getIt());
+            rs = request.getRequestDispatcher("cart.jsp");
+            rs.forward(request, response);
+        } else {
+            if (button.equals("CheckOut")) {
+                mysession.removeAttribute("itemlist");
+                mysession.invalidate();
+                shop.removeall();
+                mysession = request.getSession();
+                mysession.setAttribute("itemlist", shop.getIt());
+                System.out.println(mysession.getId());
+                rs = request.getRequestDispatcher("index.html");
+                 rs.forward(request, response);
+            } else {
+                if (button.equals("Delete")) {
+                    String name = request.getParameter("name_del");
+                    ProductModel prom = new ProductModel();
+                    Product p = prom.getbyName(name);
+                    int index = shop.getIndex(p.getName());
+                    shop.remove(index);
+                    mysession = request.getSession();
+                    mysession.setAttribute("itemlist", shop.getIt());
+                    rs = request.getRequestDispatcher("cart.jsp");
+                     rs.forward(request, response);
+                }
+            }
         }
     }
 
