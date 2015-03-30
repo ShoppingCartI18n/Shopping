@@ -13,5 +13,13 @@
     </head>
     <body>
         <h1>Hello World!</h1>
+        Product Name: ${name} <br/>
+        Product Id: ${id} <br/>
+        Product Price: ${price} <br/>
+        <form action="ViewServlet">
+            <input type="hidden" name="productget" value="name" />
+            <input name="button" value="AddToCart" type="submit" />
+            <input name="button" value="BackToHome" type="submit" />
+        </form>
     </body>
 </html>

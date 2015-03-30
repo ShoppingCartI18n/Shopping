@@ -46,7 +46,7 @@
                     <td style="width: 100px; text-align: center;">
                         <form action="ViewServlet">
                             <input type="hidden" name="name_out" value="${product.name}" />
-                            <input name="button" style="width: 100px; background: red;" type="submit" value="View Detail" />
+                            <input name="button" style="width: 100px; background: red;" type="submit" value="ViewDetail" />
                         </form>
                     </td>
                 </tr>
