@@ -9,6 +9,7 @@ import Bean.Product;
 import Model.ProductModel;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -59,14 +60,29 @@ public class ViewServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name_out");
-        ProductModel pro = new ProductModel();
-        Product product = pro.getbyName(name);
-        request.setAttribute("id", product.getId());
-        request.setAttribute("name", product.getName());
-        request.setAttribute("price", product.getPrice());
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("detailt.jsp");
-        requestDispatcher.forward(request, response);
+        String button_param = request.getParameter("button");
+        if (button_param.equals("ViewDetail")) {
+            String name = request.getParameter("name_out");
+            ProductModel pro = new ProductModel();
+            Product product = pro.getbyName(name);
+            request.setAttribute("id", product.getId());
+            request.setAttribute("name", product.getName());
+            request.setAttribute("price", product.getPrice());
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("detailt.jsp");
+            requestDispatcher.forward(request, response);
+        } else {
+            if (button_param.equals("BackToHome")) {
+                List<Product> product = new ProductModel().getData();
+                request.setAttribute("listPro", product);
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("home.jsp");
+                requestDispatcher.forward(request, response);
+            }else{
+                if(button_param.equals("AddToCart")){
+                    
+                }
+            }
+        }
+
     }
 
     /**
