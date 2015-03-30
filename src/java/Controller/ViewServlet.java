@@ -78,7 +78,7 @@ public class ViewServlet extends HttpServlet {
                 requestDispatcher.forward(request, response);
             }else{
                 if(button_param.equals("AddToCart")){
-                    
+                    System.out.println("admin");
                 }
             }
         }
