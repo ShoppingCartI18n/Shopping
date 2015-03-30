@@ -20,4 +20,12 @@ insert into product values('iphone9', 9000)
 insert into product values('iphone10', 1100)
 insert into product values('iphone11', 1100)
 
+create table Users(
+username nvarchar(20) primary key,
+password nvarchar(20)
+)
+
+insert into Users values('admin', 'admin')
+
+select * from Users
 select * from product
