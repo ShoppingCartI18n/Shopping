@@ -46,7 +46,7 @@ public class Cart {
 {
     for (int i = 0; i < items.size(); i++)
     {
-        String auction = items.get(i).getProName();
+        String auction = items.get(i).getName();
         if (proName.equals(auction))
         {
             return i;
