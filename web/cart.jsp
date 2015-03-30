@@ -27,14 +27,15 @@
                 padding: 8px;
                 border-style: solid;
                 border-color: #999999;">
+                 <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">STT</td>
                 <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">Name</td>
                 <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">Price</td>
                 <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">Quantity</td>
                 <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">Total</td>
                 <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">Action</td>
             </tr>
-            <c:forEach var="product" items="${itemlist}">
-                <tr>
+            <c:forEach varStatus="rowCounter" var="product" items="${itemlist}">
+                <tr><td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">${rowCounter.count}</td>
                     <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">${product.name}</td>
                     <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">${product.price}</td>
                     <td style="width: 100px;border-width: 1px; border-style: solid; border-color: #999999;">${product.quantity}</td>
